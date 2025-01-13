@@ -7,7 +7,7 @@ class Social_nets:
         if self.redis_client.hexists("users", username):
             print("Користувач вже існує")
             return False
-        password = bcrypt.hashpw(password.encode("utf-8"),bcrypt.gensalt())
+        password = bcrypt.hashpw(password.encode("utf-8"),bcrypt.gensalt()).decode("utf-8")
         user_data = {"password":password,"full_name":fullname}
 
         self.redis_client.hset("users",username,json.dumps(user_data))
