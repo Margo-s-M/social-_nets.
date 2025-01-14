@@ -15,22 +15,16 @@ class Social_nets:
         data = self.redis_client.hget("users", username)
         json.loads(data)
 
-    def lig_in(self):
-        pass
-
+    def log_in(self,username, password):
+        stored_password = self.redis_client.hget(f"user:{username}", "password_hash")
+        if stored_password and bcrypt.checkpw(password.encode("utf-8"), stored_password.encode("utf-8")):
+            self.current_user = username
+            print(f"Ви увійшли як {username}.")
+            return True
+        print("Неправильний логін або пароль.")
+        return False
     def del_user(self):
         pass
 
     def update_user_info(self):
-        pass
-    def search_user(self):
-        pass
-
-    def viev_user(self): #fullname
-        pass
-
-    def user_friends(self):
-        pass
-
-    def user_publications(self):
         pass
